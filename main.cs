@@ -14,7 +14,7 @@ class Program
         // File reading process
         string lineread = File.ReadLines("data.txt").First();
         string[] linewords = lineread.Split(); // split file into words
-        int operation = Int32.Parse(linewords[0]); // get operation
+        int operation = Int32.Parse(linewords[0]); // get operation, different operations can do different things, ex. 0 = shutdown, 1 = BSOD etc
         int targetstamp = Int32.Parse(linewords[1]); // get target timestamp
 
         Console.WriteLine("Targestamp: " + targetstamp);
