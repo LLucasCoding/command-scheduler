@@ -12,21 +12,14 @@ class Program
         Console.WriteLine("Current timestamp: " + timestamp); // print timestamp
 
         // File reading process
-        string lineread = File.ReadLines("data.txt").First();
+        string lineread = File.ReadLines("data.txt").First(); // get first line
         string[] linewords = lineread.Split(); // split file into words
-        int operation = Int32.Parse(linewords[0]); // get operation, different operations can do different things, ex. 0 = shutdown, 1 = BSOD etc
-        int targetstamp = Int32.Parse(linewords[1]); // get target timestamp
-        bool comment = false;
-        string commenttext = "";
         
-        if (linewords.Length > 2) {
-            comment = true;
-            commenttext = lineread;
-            for (int i = 0; i < 2; i++) {
-                int ind = commenttext.IndexOf(" ") + 1;
-                commenttext = commenttext.Substring(ind);
-            }
-        }
+        int targetstamp = Int32.Parse(linewords[0]); // get target timestamp
+        string command = lineread;
+
+        int ind = command.IndexOf(" ") + 1; // remove command from line
+        command = command.Substring(ind);
         
         Console.WriteLine("Targestamp: " + targetstamp);
         int timediff = targetstamp - timestamp;
@@ -39,14 +32,9 @@ class Program
         {
             Console.WriteLine("The time was negative, therefore I shut down no matter what");
         }
-        Console.WriteLine("Pretend this is a shutdown...");
-        Console.WriteLine("Operation code: " + operation);
-        if (comment) {
-            Console.WriteLine("Comment: " + commenttext);
-        }
-        else {
-            Console.WriteLine("No comment...");
-        }
+        Console.WriteLine("Running command! The command was");
+        Console.WriteLine(command);
+        
         return;
     }
 }
