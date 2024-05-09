@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 
 class Program
 {
@@ -40,8 +41,25 @@ class Program
             var lines = File.ReadAllLines("data.txt"); // remove first line of data
             File.WriteAllLines("data.txt", lines.Skip(1).ToArray());
             
-            Console.WriteLine("Running command! The command was");
+            Console.WriteLine("Running command! The command is");
             Console.WriteLine(command);
+
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true; // Disables window creation
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine(command);
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Console.WriteLine("Command output:");
+            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+            
+            
         }
 
         return;
