@@ -1,5 +1,8 @@
 # Command scheduler
 
+## This is a work in progress. (Read before use)
+Currently, the code waits until a certain timestamp then simulates the command by printing to console. Batch files for adding data and putting this program into startup will come shortly along with instructions.
+
 ## Basic uses
 You schedule commands in data.txt with a unix timestamp that gets executes once that timestamp gets met.
 
